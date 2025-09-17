@@ -1,0 +1,761 @@
+/* Minimal theme */
+:root {
+  --font-stack: system-ui,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --bg: #fbfbfc;
+  --bg-alt: #ffffff;
+  --bg-dark: #111418;
+  --bg-dark-alt: #181d23;
+  --border: #e3e6eb;
+  --border-dark: #2a3139;
+  --text: #1c2127;
+  --text-light: #5a636e;
+  --text-dark: #e6e8ea;
+  --accent: #2d5af0;
+  --accent-hover: #2049c9;
+  --danger: #d92d20;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 1px 2px rgba(15,18,22,0.04);
+  --shadow-md: 0 4px 14px -4px rgba(15,18,22,0.08);
+  --focus: 0 0 0 3px rgba(45,90,240,0.35);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--bg-dark);
+    --bg-alt: var(--bg-dark-alt);
+    --border: var(--border-dark);
+    --text: var(--text-dark);
+    --text-light: #88939f;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-md: 0 4px 18px -6px rgba(0,0,0,0.55);
+  }
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-stack);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: var(--text);
+}
+
+.app-shell {
+  transition: background .3s ease;
+}
+
+header.sticky {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.75);
+}
+@media (prefers-color-scheme: dark) {
+  header.sticky {
+    background: rgba(17,20,24,0.7);
+  }
+}
+
+.brand-gradient {
+  background: linear-gradient(90deg,var(--text) 0%,var(--text-light) 90%);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+.card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .25s ease, border-color .25s ease;
+  min-height: 0;
+  overflow: visible;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--focus);
+}
+
+.card textarea {
+  max-height: 140px;
+  resize: vertical;
+}
+
+h2 {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  letter-spacing: .5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+textarea,
+select,
+input[type="color"],
+input[type="range"] {
+  font: inherit;
+}
+
+textarea,
+select {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  resize: vertical;
+  transition: border-color .2s ease, background-color .25s ease;
+}
+
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--focus);
+}
+
+input[type="color"] {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 0;
+  cursor: pointer;
+  height: 42px;
+  width: 100%;
+}
+
+input[type="range"] {
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,var(--accent) 0%,var(--accent) 50%,rgba(0,0,0,0.15) 50%);
+  background-size: 200% 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-top: -6px;
+  background: var(--accent);
+  border: 2px solid var(--bg-alt);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  transition: transform .15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.1);
+}
+
+.buttons-grid button {
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: .3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, transform .18s ease;
+}
+
+.buttons-grid button:hover {
+  background: var(--bg);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.qr-frame {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.25rem;
+  background: var(--bg-alt);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+  transition: border-color .25s ease, width .15s ease, height .15s ease;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* optional visual polish */
+  border-radius: 12px;
+  padding: 0;            /* size already accounts for quietZone */
+  box-shadow: 0 4px 18px -6px rgba(0,0,0,.18);
+  position: relative;
+  max-width: none;
+  max-height: none;
+}
+
+.qr-frame:focus-within {
+  border-color: var(--accent);
+}
+
+/* Responsive downscale if viewport is narrower */
+@media (max-width: 560px) {
+  .qr-frame {
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+  .qr-frame canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.helper-text {
+  color: var(--text-light);
+  font-size: 0.7rem;
+  letter-spacing: .5px;
+}
+
+.text-red-600 {
+  color: var(--danger) !important;
+}
+
+footer {
+  margin-top: 2rem;
+  opacity: .65;
+  transition: opacity .3s ease;
+}
+footer:hover {
+  opacity: 1;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Additions for logo + minor utility */
+.qr-inner { width: 100%; }
+.qr-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  pointer-events: none;
+}
+.qr-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: .4rem;
+  opacity: .75;
+}
+
+.field {
+  width: 100%;
+  font: inherit;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+  gap: 1.1rem 1rem;
+  margin-top: 1.5rem;
+}
+
+.color-input {
+  width: 100%;
+  height: 42px;
+  padding: 0;
+}
+
+.file-input {
+  width: 100%;
+  font-size: .75rem;
+}
+.flex { display: flex; }
+
+.flex-col { flex-direction: column; }
+
+
+.mini-button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  font-size: 0.65rem;
+  padding: .45rem .6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mini-check {
+  font-size: 0.65rem;
+  display: inline-flex;
+  gap: .35rem;
+  align-items: center;
+}
+
+.header-bar {
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.footer {
+  margin: 2rem auto 3rem;
+  text-align: center;
+  font-size: .65rem;
+  opacity: .6;
+}
+.footer:hover { opacity: .9; }
+
+.footer-tight {
+  padding: 0;
+  margin-top: 8px;
+}
+
+/* Two-column input grid */
+.input-grid {
+  display: grid;
+  gap: 1.4rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin-top: 1rem;
+  align-items: start;
+  overflow: auto;
+}
+
+.input-grid .full-span {
+  grid-column: 1 / -1;
+}
+
+/* Ensure inner cards shrink if viewport smaller */
+.input-grid { overflow:auto; }
+
+@media (min-width: 1080px) {
+  .input-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Add / adjust for two-column form */
+.form-columns {
+  display: grid;
+  gap: 1.25rem 2rem;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  margin-top: 1.6rem;
+  align-items: start;
+}
+
+.form-col {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-title {
+  --grad-from: var(--text);
+  --grad-to: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0;
+  font-size: clamp(1.9rem, 1.6rem + 1.8vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.5px;
+  background: linear-gradient(90deg,var(--grad-from) 0%,var(--grad-to) 70%);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.logo-mark {
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 18px;
+  background: radial-gradient(circle at 30% 30%, var(--accent) 0%, var(--accent-hover) 90%);
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 4px 10px -4px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.15);
+}
+
+.title-accent {
+  font-weight: 700;
+}
+
+.title-thin {
+  font-weight: 300;
+}
+
+.app-subtitle {
+  margin: .15rem 0 0;
+  font-size: .68rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-light);
+  opacity: .85;
+}
+
+.repo-link {
+  align-self: flex-start;
+  font-size: .7rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: .55rem .9rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-alt);
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  gap: .4rem;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+
+.repo-link:hover {
+  background: var(--bg);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .repo-link { background: var(--bg-dark-alt); }
+  .repo-link:hover { background: var(--bg-dark); }
+}
+
+/* --- Layout padding + no scroll --- */
+.layout-padded {
+  box-sizing: border-box;
+  padding: 28px clamp(16px, 3vw, 42px);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+}
+
+.content-fit {
+  flex: 1;
+  display: grid;
+  /* preserve your existing two-column breakpoint */
+  grid-template-columns: 1fr;
+  gap: 40px;
+  max-width: 72rem;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden; /* prevent inner scroll */
+  overflow-x: auto;
+  height: 100%;
+  grid-auto-rows: minmax(0, 1fr); /* allow children to stretch & scroll internally */
+}
+
+@media (min-width: 1024px) {
+  .content-fit {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Preview card auto-size with QR --- */
+.preview-card {
+  align-items: flex-start;
+  width: max-content;
+  max-width: none;         /* remove previous cap */
+  overflow: visible;       /* let inner wrapper define width */
+  align-self: start;
+  min-height: 0;
+}
+
+.preview-card .qr-size-wrapper {
+  /* No forced flex grow so height follows QR dimension */
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  width: max-content;      /* grow with QR size */
+  max-width: none;
+  overflow: visible;
+}
+
+.qr-frame {
+  transition: width .15s ease, height .15s ease;
+  max-width: none;
+  max-height: none;
+}
+
+/* Downscale gracefully on very narrow viewports */
+@media (max-width: 560px) {
+  .preview-card {
+    width: 100%;
+    width: max-content;
+  }
+  .preview-card .qr-size-wrapper {
+    display: flex;
+    justify-content: center;
+    justify-content: flex-start;
+  }
+  .preview-card .qr-frame {
+    max-width: 90vw;
+    max-height: 90vw;
+    max-width: none;
+    max-height: none;
+  }
+  .preview-card .qr-frame canvas {
+    width: 100% !important;
+    height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+/* --- Preview card unrestricted horizontal growth --- */
+.content-fit {
+  /* allow horizontal scroll when QR exceeds container */
+  overflow-x: auto;
+}
+
+.preview-card {
+  align-items: flex-start;
+  width: max-content;
+  max-width: none;         /* remove previous cap */
+  overflow: visible;       /* let inner wrapper define width */
+}
+
+.preview-card .qr-size-wrapper {
+  display: block;
+  width: max-content;      /* grow with QR size */
+  max-width: none;
+  overflow: visible;
+}
+
+.qr-frame {
+  /* keep transition, ensure no forced max shrink */
+  max-width: none;
+  max-height: none;
+}
+
+/* Remove previous mobile downscale so size stays exact */
+@media (max-width: 560px) {
+  .preview-card {
+    width: max-content;
+  }
+  .preview-card .qr-size-wrapper {
+    justify-content: flex-start;
+  }
+  .preview-card .qr-frame {
+    max-width: none;
+    max-height: none;
+  }
+  .preview-card .qr-frame canvas {
+    width: auto !important;
+    height: auto !important;
+  }
+}
+
+/* --- Full-height layout & scrollable input card --- */
+.input-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* contain internal scrollbar */
+  min-height: 0;
+}
+
+.input-card .input-grid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.4rem; /* space for scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.input-card .input-grid::-webkit-scrollbar {
+  width: 8px;
+}
+.input-card .input-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.input-card .input-grid::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* Scrollable input form */
+.input-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden; /* contain internal scroller */
+}
+
+.input-card .input-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: .5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+.input-card .input-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.input-card .input-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.input-card .input-scroll::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* Ensure main fills viewport so inner area has room to scroll */
+.content-fit {
+  height: calc(100vh -  var(--header-offset, 0px));
+  min-height: 0;
+}
+
+/* If header has fixed height, expose a custom property (optional) */
+/* .header-bar { --header-h: 96px; } */
+/* .content-fit { height: calc(100vh - var(--header-h)); } */
+
+/* --- FIX: make left input card vertically scrollable --- */
+
+/* Ensure the overall shell reserves viewport height so inner areas can overflow */
+html, body, #root { height:100%; }
+.app-shell.layout-padded {
+  height:100vh;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Main grid must allow children to shrink */
+.content-fit {
+  flex:1;
+  min-height:0;
+  display:grid;
+  grid-template-columns: 1fr; /* existing */
+  grid-auto-rows: 1fr;
+}
+
+/* At wider screens keep two columns; each column row still min-height:0 */
+@media (min-width:1024px){
+  .content-fit { grid-template-columns:1fr 1fr; }
+}
+
+/* Every direct child (cards) should be allowed to shrink so inner scroll works */
+.content-fit > * { min-height:0; }
+
+/* Card base: remove forced overflow hidden if blocking scroll (optional) */
+.card { overflow:visible; }
+
+/* Input card structure */
+.input-card {
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+
+/* Scroll container (was .input-scroll) */
+.input-card .input-scroll {
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding-right:.5rem;        /* space for scrollbar */
+  overscroll-behavior: contain;
+  scrollbar-width:thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+/* Remove overflow from inner grid so only .input-scroll handles it */
+.input-card .input-grid {
+  overflow:visible !important;
+  min-height: fit-content;
+}
+
+/* Custom scrollbar (WebKit) */
+.input-card .input-scroll::-webkit-scrollbar {
+  width:8px;
+}
+.input-card .input-scroll::-webkit-scrollbar-track {
+  background:transparent;
+}
+.input-card .input-scroll::-webkit-scrollbar-thumb {
+  background:var(--accent);
+  border-radius:4px;
+}
+
+/* Preview card should not stretch taller than viewport; let QR dictate width */
+.preview-card {
+  min-height:0;
+  align-self:start;
+}
+
+/* If header height changes and you need more precise fit, uncomment:
+.header-bar { --header-h: 110px; }
+.content-fit { height: calc(100vh - var(--header-h)); }
+*/
