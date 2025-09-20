@@ -5,8 +5,12 @@ import "./styles.css";
 export default function App() {
   const [value, setValue] = useState("https://");
   const [fgColor, setFgColor] = useState("#000000");
+
+  // Background handling with transparent toggle
   const [bgColor, setBgColor] = useState("#FFFFFF");
+  const [lastSolidBg, setLastSolidBg] = useState("#FFFFFF");
   const [transparentBG, setTransparentBG] = useState(false);
+
   const [ecLevel, setEcLevel] = useState("M");
   const [size, setSize] = useState(256);
 
@@ -27,19 +31,23 @@ export default function App() {
   const qrId = "app-qr-code";
   const canvasRef = useRef(null);
 
+  // Track last non-transparent background
   useEffect(() => {
-    if (transparentBG) setBgColor("transparent");
-    else if (bgColor === "transparent") setBgColor("#FFFFFF");
-  }, [transparentBG]);
+    if (!transparentBG && bgColor !== "transparent") {
+      setLastSolidBg(bgColor);
+    }
+  }, [bgColor, transparentBG]);
 
-  // Lock scroll & clean up
+  // When toggling transparent mode
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prevOverflow;
-    };
-  }, []);
+    if (transparentBG) {
+      setBgColor("transparent");
+      document.body.dataset.pageTransparent = "true";
+    } else {
+      setBgColor(lastSolidBg || "#FFFFFF");
+      delete document.body.dataset.pageTransparent;
+    }
+  }, [transparentBG, lastSolidBg]);
 
   const charCount = value.length;
   const maxChars = 2953;
@@ -199,10 +207,14 @@ export default function App() {
                 <div className="flex gap-2 items-center">
                   <input
                     type="color"
-                    value={effectiveBG === "transparent" ? "#ffffff" : bgColor}
-                    onChange={(e) => setBgColor(e.target.value)}
-                    disabled={transparentBG}
+                    value={transparentBG ? (lastSolidBg || "#ffffff") : bgColor}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setBgColor(val);
+                      if (!transparentBG) setLastSolidBg(val);
+                    }}
                     className="color-input"
+                    disabled={false}
                   />
                   <label className="mini-check">
                     <input

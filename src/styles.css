@@ -503,16 +503,13 @@ html { scroll-behavior: smooth; }
 .content-fit {
   flex: 1;
   display: grid;
-  /* preserve your existing two-column breakpoint */
   grid-template-columns: 1fr;
   gap: 40px;
   max-width: 72rem;
   width: 100%;
   margin: 0 auto;
-  overflow: hidden; /* prevent inner scroll */
-  overflow-x: auto;
-  height: 100%;
-  grid-auto-rows: minmax(0, 1fr); /* allow children to stretch & scroll internally */
+  overflow-x: auto;          /* keep horizontal scroll for wide QR */
+  /* allow natural vertical page scroll */
 }
 
 @media (min-width: 1024px) {
@@ -753,6 +750,36 @@ html, body, #root { height:100%; }
 .preview-card {
   min-height:0;
   align-self:start;
+}
+.app-shell.layout-padded {
+  /* was: height:100vh; */
+  height: auto;
+  min-height: 100vh;
+}
+
+/* If earlier you set content-fit height, relax it to allow page growth */
+.content-fit {
+  /* remove hard height constraints that can block document scrolling */
+  height: auto;
+  min-height: 0;
+  overflow-x: auto; /* keep horizontal as you wanted */
+}
+
+/* When page transparent mode active (transparent BG checkbox) */
+body[data-page-transparent="true"] {
+  background: transparent !important;
+}
+
+/* Keep input form internal vertical scrolling working */
+.input-card {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.input-card .input-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* If header height changes and you need more precise fit, uncomment:
